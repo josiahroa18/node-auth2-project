@@ -3,14 +3,15 @@ const db = require('../../data/dbConfig');
 module.exports = {
     addUser,
     getById,
+    getByUsername,
     getUsers
 }
 
-const getUsers = () => {
+function getUsers() {
     return db('users');
 }
 
-const addUser = user => {
+function addUser(user) {
     return db('users')
         .insert(user, 'id')
         .then(id => {
@@ -18,8 +19,14 @@ const addUser = user => {
         })
 }
 
-const getById = id => {
+function getById(id) {
     return db('users')
         .where({ id })
+        .first();
+}
+
+function getByUsername(username) {
+    return db('users')
+        .where({ username })
         .first();
 }

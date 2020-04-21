@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const User = require('./userModel');
 
-router.get('/', (req, res) => {
+const User = require('./userModel');
+const restricted = require('../auth/authenticator');
+
+router.get('/', restricted, (req, res) => {
     User.getUsers()
     .then(users => {
         res.status(201).json(users);
